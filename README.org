@@ -1,0 +1,42 @@
+* A simple Pax Web Whiteboard Extender Application
+
+This is a minimal "Hello world" application that will plug into the [[http://ops4j.github.io/pax/web/SNAPSHOT/User-Guide.html#whiteboard-extender][Pax Web Whiteboard Extender]] with the local path "/hello" where it returns an HTML page.
+
+** Status
+
+[[https://travis-ci.org/steinarb/post-body-capture][file:https://travis-ci.org/steinarb/hello-karaf-demo.svg?branch=master]] [[https://coveralls.io/r/steinarb/post-body-capture][file:https://coveralls.io/repos/steinarb/hello-karaf-demo/badge.svg]] [[https://maven-badges.herokuapp.com/maven-central/no.priv.bang.debug-utils/post-body-capture][file:https://maven-badges.herokuapp.com/maven-central/no.priv.bang.demos/hello-karaf-demo/badge.svg]]
+
+
+*** SonarCloud
+
+[[https://sonarcloud.io/dashboard/index/no.priv.bang.debug-utils%3Apost-body-capture][file:https://sonarcloud.io/api/badges/measure?key=no.priv.bang.demos%3Ahello-karaf-demo&metric=lines#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.debug-utils%3Apost-body-capture][file:https://sonarcloud.io/api/badges/measure?key=no.priv.bang.demos%3Ahello-karaf-demo&metric=bugs#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.debug-utils%3Apost-body-capture][file:https://sonarcloud.io/api/badges/measure?key=no.priv.bang.demos%3Ahello-karaf-demo&metric=new_bugs#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.debug-utils%3Apost-body-capture][file:https://sonarcloud.io/api/badges/measure?key=no.priv.bang.demos%3Ahello-karaf-demo&metric=vulnerabilities#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.debug-utils%3Apost-body-capture][file:https://sonarcloud.io/api/badges/measure?key=no.priv.bang.demos%3Ahello-karaf-demo&metric=new_vulnerabilities#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.debug-utils%3Apost-body-capture][file:https://sonarcloud.io/api/badges/measure?key=no.priv.bang.demos%3Ahello-karaf-demo&metric=code_smells#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.debug-utils%3Apost-body-capture][file:https://sonarcloud.io/api/badges/measure?key=no.priv.bang.demos%3Ahello-karaf-demo&metric=new_code_smells#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.debug-utils%3Apost-body-capture][file:https://sonarcloud.io/api/badges/measure?key=no.priv.bang.demos%3Ahello-karaf-demo&metric=coverage#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.debug-utils%3Apost-body-capture][file:https://sonarcloud.io/api/badges/measure?key=no.priv.bang.demos%3Ahello-karaf-demo&metric=new_coverage#.svg]]
+
+
+** How to install
+
+This is how to build and install the servlet:
+ 1. First [[https://karaf.apache.org/manual/latest/quick-start.html#_quick_start][download and install apache karaf]]
+ 2. In the apache karaf command line, install the feature that pulls in the servlet with dependencies
+    #+BEGIN_EXAMPLE
+      feature:repo-add mvn:no.priv.bang.demos/hello-karaf-demo/LATEST/xml/features
+      feature:install hello-karaf-demo
+    #+END_EXAMPLE
+ 3. After this, the servlet will be listening for POST requests, at the local path "/hell" on the karaf web server, e.g. http://localhost:8181/hello for a karaf server started locally, with default settings
+
+** To uninstall the servlet from karaf
+
+This is how to uninstall the servlet from karaf:
+ 1. At the karaf console prompt, give the following command:
+    #+BEGIN_EXAMPLE
+      feature:uninstall hello-karaf-demo
+    #+END_EXAMPLE
+
+This will disconnect the servlet from the Pax Web Whiteboard Extender and uninstall the servlet, and all dependencies (e.g. Pax Web) that has been pulled in by this feature.
+
+However, if a different feature has pulled in the same dependencies, the dependencies won't be uninstalled until everything that has required them is uninstalled.
+
+** License
+
+This software project is licensed under Apache License v. 2.
+
+See the LICENSE file for details.

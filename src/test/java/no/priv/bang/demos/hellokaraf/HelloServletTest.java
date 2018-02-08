@@ -17,6 +17,8 @@ package no.priv.bang.demos.hellokaraf;
 
 import static org.junit.Assert.*;
 //import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
@@ -43,7 +45,7 @@ public class HelloServletTest {
 
         assertEquals("text/html", response.getContentType());
         assertEquals(200, response.getStatus());
-        assertEquals(161, response.getOutput().size());
+        assertThat(response.getOutput().size(), greaterThan(0));
     }
 
     @SuppressWarnings("unchecked")

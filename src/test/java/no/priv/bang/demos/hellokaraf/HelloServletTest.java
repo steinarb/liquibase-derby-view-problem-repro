@@ -22,6 +22,8 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.junit.Test;
@@ -48,14 +50,15 @@ public class HelloServletTest {
         assertThat(response.getOutput().size(), greaterThan(0));
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void testDoGetWithError() throws ServletException, IOException {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getRequestURI()).thenReturn("http://localhost:8181/hello");
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
-        when(response.getWriter()).thenThrow(IOException.class);
+        PrintWriter writer = mock(PrintWriter.class);
+        doThrow(IOException.class).when(writer).print(anyString());
+        when(response.getWriter()).thenReturn(writer);
 
         HelloServlet servlet = new HelloServlet();
         servlet.setLogservice(logservice);

@@ -56,9 +56,10 @@ public class HelloServlet extends HttpServlet {
                     .format("<p>%s</p>%n", PARAGRAPH);
                 writer.println("</body>");
                 writer.println("</html>");
+
+                response.setStatus(200);
             }
 
-            response.setStatus(200);
         } catch (Exception e) {
             logservice.log(LogService.LOG_ERROR, "Hello servlet caught exception ", e);
             response.setStatus(500); // Report internal server error

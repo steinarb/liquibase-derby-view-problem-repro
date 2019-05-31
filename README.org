@@ -19,7 +19,7 @@ This is how to build and install the servlet:
  2. In the apache karaf command line, install the feature that pulls in the servlet with dependencies
     #+BEGIN_EXAMPLE
       feature:repo-add mvn:no.priv.bang.demos/hello-karaf-demo/LATEST/xml/features
-      feature:install hello-karaf-demo
+      feature:install hello-karaf
     #+END_EXAMPLE
  3. After this, the servlet will be listening for POST requests, at the local path "/hell" on the karaf web server, e.g. http://localhost:8181/hello for a karaf server started locally, with default settings
 

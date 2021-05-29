@@ -25,11 +25,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPattern;
 import org.osgi.service.log.LogService;
 
 import no.priv.bang.osgi.service.adapters.logservice.LoggerAdapter;
 
-@Component(service={Servlet.class}, property={"alias=/hello"} )
+@Component(service={Servlet.class})
+@HttpWhiteboardServletPattern("/hello")
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final LoggerAdapter logger = new LoggerAdapter(getClass());

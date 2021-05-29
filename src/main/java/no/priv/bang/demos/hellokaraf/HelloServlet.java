@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Steinar Bang
+ * Copyright 2018-2021 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,18 +27,18 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.log.LogService;
 
-import no.priv.bang.osgi.service.adapters.logservice.LogServiceAdapter;
+import no.priv.bang.osgi.service.adapters.logservice.LoggerAdapter;
 
 @Component(service={Servlet.class}, property={"alias=/hello"} )
 public class HelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private final LogServiceAdapter logservice = new LogServiceAdapter();
+    private final LoggerAdapter logger = new LoggerAdapter(getClass());
     private static final String TITLE = "Hello world!";
     private static final String PARAGRAPH = "This is sent via PAX Web Whiteboard Extender.";
 
     @Reference
     public void setLogservice(LogService logservice) {
-        this.logservice.setLogService(logservice);
+        this.logger.setLogService(logservice);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class HelloServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            logservice.log(LogService.LOG_ERROR, "Hello servlet caught exception ", e);
+            logger.error("Hello servlet caught exception ", e);
             response.setStatus(500); // Report internal server error
         }
     }

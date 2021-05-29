@@ -55,7 +55,7 @@ public class HelloServletTest {
         when(request.getRequestURI()).thenReturn("http://localhost:8181/hello");
         MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
         PrintWriter writer = mock(PrintWriter.class);
-        doThrow(IOException.class).when(writer).print(anyString());
+        doThrow(RuntimeException.class).when(writer).print(anyString());
         when(response.getWriter()).thenReturn(writer);
 
         HelloServlet servlet = new HelloServlet();

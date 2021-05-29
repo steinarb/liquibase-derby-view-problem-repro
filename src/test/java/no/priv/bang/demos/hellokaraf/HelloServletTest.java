@@ -26,7 +26,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
 
-import no.priv.bang.demos.hellokaraf.mocks.MockHttpServletResponse;
+import com.mockrunner.mock.web.MockHttpServletResponse;
+
 import no.priv.bang.demos.hellokaraf.mocks.MockLogService;
 
 public class HelloServletTest {
@@ -36,7 +37,7 @@ public class HelloServletTest {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getRequestURI()).thenReturn("http://localhost:8181/hello");
-        MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
+        MockHttpServletResponse response = new MockHttpServletResponse();
 
         HelloServlet servlet = new HelloServlet();
         servlet.setLogservice(logservice);
@@ -45,7 +46,7 @@ public class HelloServletTest {
 
         assertEquals("text/html", response.getContentType());
         assertEquals(200, response.getStatus());
-        assertThat(response.getOutput().size()).isPositive();
+        assertThat(response.getOutputStreamContent()).isNotEmpty();
     }
 
     @Test
@@ -53,7 +54,7 @@ public class HelloServletTest {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getRequestURI()).thenReturn("http://localhost:8181/hello");
-        MockHttpServletResponse response = mock(MockHttpServletResponse.class, CALLS_REAL_METHODS);
+        MockHttpServletResponse response = spy(new MockHttpServletResponse());
         PrintWriter writer = mock(PrintWriter.class);
         doThrow(RuntimeException.class).when(writer).print(anyString());
         when(response.getWriter()).thenReturn(writer);
@@ -64,6 +65,6 @@ public class HelloServletTest {
         servlet.doGet(request, response);
 
         assertEquals(500, response.getStatus());
-        assertEquals(0, response.getOutput().size());
+        assertThat(response.getOutputStreamContent()).isEmpty();
     }
 }

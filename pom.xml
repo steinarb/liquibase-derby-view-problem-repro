@@ -28,7 +28,7 @@
         <karaf.version>4.3.2</karaf.version>
         <osgi.version>7.0.0</osgi.version>
         <osgi.service>1.4.0</osgi.service>
-        <osgi-service-adaptors.version>1.0.0</osgi-service-adaptors.version>
+        <osgi-service-adaptors.version>1.1.2</osgi-service-adaptors.version>
         <junit.jupiter.version>5.7.2</junit.jupiter.version>
         <assertj.version>3.19.0</assertj.version>
         <mockito.version>3.10.0</mockito.version>
@@ -76,7 +76,7 @@
         </dependency>
         <dependency>
             <groupId>no.priv.bang.osgi.service.adapters</groupId>
-            <artifactId>logservice</artifactId>
+            <artifactId>adapters.logservice</artifactId>
             <version>${osgi-service-adaptors.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -126,6 +126,12 @@
             <groupId>com.mockrunner</groupId>
             <artifactId>mockrunner-servlet</artifactId>
             <version>${mockrunner.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>no.priv.bang.osgi.service.adapters</groupId>
+            <artifactId>service-mocks</artifactId>
+            <version>${osgi-service-adaptors.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 import com.mockrunner.mock.web.MockHttpServletResponse;
 
-import no.priv.bang.demos.hellokaraf.mocks.MockLogService;
+import no.priv.bang.osgi.service.mocks.logservice.MockLogService;
 
 public class HelloServletTest {
 

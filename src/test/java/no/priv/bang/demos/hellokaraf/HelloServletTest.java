@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Steinar Bang
+ * Copyright 2018-2021 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,16 @@
  */
 package no.priv.bang.demos.hellokaraf;
 
-import static org.junit.Assert.*;
-//import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import no.priv.bang.demos.hellokaraf.mocks.MockHttpServletResponse;
 import no.priv.bang.demos.hellokaraf.mocks.MockLogService;
@@ -47,7 +45,7 @@ public class HelloServletTest {
 
         assertEquals("text/html", response.getContentType());
         assertEquals(200, response.getStatus());
-        assertThat(response.getOutput().size(), greaterThan(0));
+        assertThat(response.getOutput().size()).isPositive();
     }
 
     @Test

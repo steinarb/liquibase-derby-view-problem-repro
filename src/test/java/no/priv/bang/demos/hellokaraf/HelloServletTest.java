@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 Steinar Bang
+ * Copyright 2018-2022 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,10 +30,10 @@ import com.mockrunner.mock.web.MockHttpServletResponse;
 
 import no.priv.bang.osgi.service.mocks.logservice.MockLogService;
 
-public class HelloServletTest {
+class HelloServletTest {
 
     @Test
-    public void testDoGet() throws ServletException, IOException {
+    void testDoGet() throws ServletException, IOException {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getRequestURI()).thenReturn("http://localhost:8181/hello");
@@ -50,7 +50,7 @@ public class HelloServletTest {
     }
 
     @Test
-    public void testDoGetWithError() throws ServletException, IOException {
+    void testDoGetWithError() throws ServletException, IOException {
         MockLogService logservice = new MockLogService();
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getRequestURI()).thenReturn("http://localhost:8181/hello");

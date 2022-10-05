@@ -4,14 +4,23 @@ This is a minimal "Hello world" application that will plug into the [[http://ops
 
 ** Status
 
-[[https://travis-ci.org/steinarb/hello-karaf-demo][file:https://travis-ci.org/steinarb/hello-karaf-demo.svg?branch=master]] [[https://coveralls.io/r/steinarb/hello-karaf-demo][file:https://coveralls.io/repos/steinarb/hello-karaf-demo/badge.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos%3Ahello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos%3Ahello-karaf-demo&metric=alert_status#.svg]] [[https://maven-badges.herokuapp.com/maven-central/no.priv.bang.demos/hello-karaf-demo][file:https://maven-badges.herokuapp.com/maven-central/no.priv.bang.demos/hello-karaf-demo/badge.svg]]
+[[https://github.com/steinarb/hello-karaf-demo/actions/workflows/hello-karaf-demo-maven-ci-build.yml][file:https://github.com/steinarb/hello-karaf-demo/actions/workflows/hello-karaf-demo-maven-ci-build.yml/badge.svg]]
+[[https://coveralls.io/github/steinarb/hello-karaf-demo][file:https://coveralls.io/repos/github/steinarb/hello-karaf-demo/badge.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=alert_status#.svg]]
+[[https://maven-badges.herokuapp.com/maven-central/no.priv.bang.demos/hello-karaf-demo][file:https://maven-badges.herokuapp.com/maven-central/no.priv.bang.demos/hello-karaf-demo/badge.svg]]
 
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/images/project_badges/sonarcloud-white.svg]]
 
-*** SonarCloud
-
-[[https://sonarcloud.io/dashboard/index/no.priv.bang.demos%3Ahello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos%3Ahello-karaf-demo&metric=ncloc#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos%3Ahello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos%3Ahello-karaf-demo&metric=bugs#.svg#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos%3Ahello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos%3Ahello-karaf-demo&metric=vulnerabilities#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos%3Ahello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos%3Ahello-karaf-demo&metric=code_smells#.svg]] [[https://sonarcloud.io/dashboard/index/no.priv.bang.demos%3Ahello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=no.priv.bang.demos%3Ahello-karaf-demo&metric=coverage#.svg]]
-
-
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=sqale_index#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=coverage#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=ncloc#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=code_smells#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=sqale_rating#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=security_rating#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=bugs#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=vulnerabilities#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=duplicated_lines_density#.svg]]
+[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=reliability_rating#.svg]]
 ** How to install
 
 This is how to build and install the servlet:

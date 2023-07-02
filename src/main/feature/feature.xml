@@ -2,5 +2,6 @@
 <features>
     <feature name="${karaf-feature-name}">
         <feature>http-whiteboard</feature>
+        <feature>scr</feature>
     </feature>
 </features>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 Steinar Bang
+ * Copyright 2018-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,12 +34,12 @@ class HelloServletTest {
 
     @Test
     void testDoGet() throws ServletException, IOException {
-        MockLogService logservice = new MockLogService();
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        var logservice = new MockLogService();
+        var request = mock(HttpServletRequest.class);
         when(request.getRequestURI()).thenReturn("http://localhost:8181/hello");
-        MockHttpServletResponse response = new MockHttpServletResponse();
+        var response = new MockHttpServletResponse();
 
-        HelloServlet servlet = new HelloServlet();
+        var servlet = new HelloServlet();
         servlet.setLogservice(logservice);
 
         servlet.doGet(request, response);
@@ -51,15 +51,15 @@ class HelloServletTest {
 
     @Test
     void testDoGetWithError() throws ServletException, IOException {
-        MockLogService logservice = new MockLogService();
-        HttpServletRequest request = mock(HttpServletRequest.class);
+        var logservice = new MockLogService();
+        var request = mock(HttpServletRequest.class);
         when(request.getRequestURI()).thenReturn("http://localhost:8181/hello");
-        MockHttpServletResponse response = spy(new MockHttpServletResponse());
-        PrintWriter writer = mock(PrintWriter.class);
+        var response = spy(new MockHttpServletResponse());
+        var writer = mock(PrintWriter.class);
         doThrow(RuntimeException.class).when(writer).print(anyString());
         when(response.getWriter()).thenReturn(writer);
 
-        HelloServlet servlet = new HelloServlet();
+        var servlet = new HelloServlet();
         servlet.setLogservice(logservice);
 
         servlet.doGet(request, response);

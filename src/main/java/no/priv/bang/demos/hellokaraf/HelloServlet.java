@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 Steinar Bang
+ * Copyright 2018-2024 Steinar Bang
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
 package no.priv.bang.demos.hellokaraf;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +45,7 @@ public class HelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             response.setContentType("text/html");
-            try(PrintWriter writer = response.getWriter()) {
+            try(var writer = response.getWriter()) {
                 writer.println("<html>");
                 writer.println("<head>");
                 writer.format("<title>%s</title>%n", TITLE);

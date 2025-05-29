@@ -1,51 +1,18 @@
-* A simple Pax Web Whiteboard Extender Application
+* Liquibase 4.32.0 derby view problem repro
 
-This is a minimal "Hello world" application that will plug into the [[http://ops4j.github.io/pax/web/SNAPSHOT/User-Guide.html#whiteboard-extender][Pax Web Whiteboard Extender]] with the local path "/hello" where it returns an HTML page.
+With liquibase 4.32.0 <viewExists> and <dropView> stopped working on derby.
 
-** Status
+To reproduce clone and build this project (the "mvn install" will fail because of a liquibase changelog exception):
+#+begin_example
+  mkdir -p ~/git
+  cd ~/git/
+  git clone https://github.com/steinarb/liquibase-derby-view-problem-repro.git
+  cd ~/git/liquibase-derby-view-problem-repro/
+  mvn install
+#+end_example
 
-[[https://github.com/steinarb/hello-karaf-demo/actions/workflows/hello-karaf-demo-maven-ci-build.yml][file:https://github.com/steinarb/hello-karaf-demo/actions/workflows/hello-karaf-demo-maven-ci-build.yml/badge.svg]]
-[[https://coveralls.io/github/steinarb/hello-karaf-demo][file:https://coveralls.io/repos/github/steinarb/hello-karaf-demo/badge.svg]]
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=alert_status#.svg]]
-[[https://maven-badges.herokuapp.com/maven-central/no.priv.bang.demos/hello-karaf-demo][file:https://maven-badges.herokuapp.com/maven-central/no.priv.bang.demos/hello-karaf-demo/badge.svg]]
-
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/images/project_badges/sonarcloud-white.svg]]
-
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=sqale_index#.svg]]
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=coverage#.svg]]
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=ncloc#.svg]]
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=code_smells#.svg]]
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=sqale_rating#.svg]]
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=security_rating#.svg]]
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=bugs#.svg]]
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=vulnerabilities#.svg]]
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=duplicated_lines_density#.svg]]
-[[https://sonarcloud.io/summary/new_code?id=steinarb_hello-karaf-demo][file:https://sonarcloud.io/api/project_badges/measure?project=steinarb_hello-karaf-demo&metric=reliability_rating#.svg]]
-** How to install
-
-This is how to build and install the servlet:
- 1. First [[https://karaf.apache.org/manual/latest/quick-start.html#_quick_start][download and install apache karaf]]
- 2. In the apache karaf command line, install the feature that pulls in the servlet with dependencies
-    #+BEGIN_EXAMPLE
-      feature:repo-add mvn:no.priv.bang.demos/hello-karaf-demo/LATEST/xml/features
-      feature:install hello-karaf
-    #+END_EXAMPLE
- 3. After this, the servlet will be listening for GET requests, at the local path "/hello" on the karaf web server, e.g. http://localhost:8181/hello for a karaf server started locally, with default settings
-
-** To uninstall the servlet from karaf
-
-This is how to uninstall the servlet from karaf:
- 1. At the karaf console prompt, give the following command:
-    #+BEGIN_EXAMPLE
-      feature:uninstall hello-karaf-demo
-    #+END_EXAMPLE
-
-This will disconnect the servlet from the Pax Web Whiteboard Extender and uninstall the servlet, and all dependencies (e.g. Pax Web) that has been pulled in by this feature.
-
-However, if a different feature has pulled in the same dependencies, the dependencies won't be uninstalled until everything that has required them is uninstalled.
-
-** License
-
-This software project is licensed under Apache License v. 2.
-
-See the LICENSE file for details.
+To test with liquibase 4.32.1, change the liquibase.version maven property, the command below will run without failing:
+#+begin_example
+  cd ~/git/liquibase-derby-view-problem-repro/
+  mvn -Dliquibase.version=4.31.1 clean install
+#+end_example

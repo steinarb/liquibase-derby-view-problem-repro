@@ -1,0 +1,108 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-${liquibase-xsd.version}.xsd">
+
+    <changeSet author="sb" id="sonar-collector-measures-1.0.0">
+        <createTable tableName="measures">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="SONAR_MEASURES_ID"/>
+            </column>
+            <column name="project_key" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="version_is_release" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="analysis_time" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lines" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bugs" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="new_bugs" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vulnerabilities" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="new_vulnerabilities" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code_smells" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="new_code_smells" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="coverage" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="new_coverage" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="sb" id="measure-add-indexes-1.0.0">
+        <createIndex indexName="idx_project_key" tableName="measures">
+            <column name="project_key" />
+        </createIndex>
+        <createIndex indexName="idx_version_is_release" tableName="measures">
+            <column name="version_is_release" />
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="sb" id="measures-add-complexity">
+        <validCheckSum>ANY</validCheckSum>
+        <addColumn tableName="measures" >
+            <column name="complexity" type="BIGINT" defaultValueNumeric="0"/>
+        </addColumn>
+        <addNotNullConstraint tableName="measures" columnName="complexity" columnDataType="BIGINT"/>
+    </changeSet>
+
+    <changeSet author="sb" id="create-measures_view">
+        <createView viewName="MEASURES_VIEW">select id,project_key,version,version_is_release,analysis_time,lines,bugs,new_bugs,vulnerabilities,new_vulnerabilities,code_smells,new_code_smells,coverage,new_coverage,complexity, (bugs + vulnerabilities + code_smells) as issues from measures </createView>
+    </changeSet>
+
+    <changeSet author="sb" id="measures-add-ratings">
+        <validCheckSum>ANY</validCheckSum>
+        <addColumn tableName="measures" >
+            <column name="sqale_rating" type="VARCHAR(1)" defaultValue=""/>
+            <column name="new_maintainability_rating" type="VARCHAR(1)" defaultValue=""/>
+            <column name="security_rating" type="VARCHAR(1)" defaultValue=""/>
+            <column name="new_security_rating" type="VARCHAR(1)" defaultValue=""/>
+            <column name="reliability_rating" type="VARCHAR(1)" defaultValue=""/>
+            <column name="new_reliability_rating" type="VARCHAR(1)" defaultValue=""/>
+        </addColumn>
+        <addNotNullConstraint tableName="measures" columnName="sqale_rating" columnDataType="VARCHAR(1)"/>
+        <addNotNullConstraint tableName="measures" columnName="new_maintainability_rating" columnDataType="VARCHAR(1)"/>
+        <addNotNullConstraint tableName="measures" columnName="security_rating" columnDataType="VARCHAR(1)"/>
+        <addNotNullConstraint tableName="measures" columnName="new_security_rating" columnDataType="VARCHAR(1)"/>
+        <addNotNullConstraint tableName="measures" columnName="reliability_rating" columnDataType="VARCHAR(1)"/>
+        <addNotNullConstraint tableName="measures" columnName="new_reliability_rating" columnDataType="VARCHAR(1)"/>
+    </changeSet>
+
+    <changeSet author="sb" id="remove-measures_view-to-add-ratings">
+        <preConditions onFail="CONTINUE" >
+            <viewExists viewName="MEASURES_VIEW" />
+        </preConditions>
+
+        <dropView viewName="MEASURES_VIEW" />
+    </changeSet>
+
+    <changeSet author="sb" id="add-ratings-to-measures_view">
+        <preConditions onFail="CONTINUE" >
+            <not>
+                <viewExists viewName="MEASURES_VIEW" />
+            </not>
+        </preConditions>
+
+        <createView viewName="MEASURES_VIEW">select id,project_key,version,version_is_release,analysis_time,lines,bugs,new_bugs,vulnerabilities,new_vulnerabilities,code_smells,new_code_smells,coverage,new_coverage,complexity, (bugs + vulnerabilities + code_smells) as issues,sqale_rating,new_maintainability_rating,security_rating,new_security_rating,reliability_rating,new_reliability_rating from measures </createView>
+    </changeSet>
+</databaseChangeLog>

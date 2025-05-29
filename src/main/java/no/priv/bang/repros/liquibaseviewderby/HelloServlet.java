@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and limitations
  * under the License.
  */
-package no.priv.bang.demos.hellokaraf;
+package no.priv.bang.repros.liquibaseviewderby;
 
 import java.io.IOException;
 import javax.servlet.Servlet;

@@ -10,11 +10,6 @@
     <name>Liquibase view problem on derby repro</name>
 
     <properties>
-        <karaf-feature-name>hello-karaf</karaf-feature-name>
-        <Bundle-SymbolicName>no.priv.bang.debug-utils.${project.artifactId}</Bundle-SymbolicName>
-        <maven.bundle.plugin.version>6.0.0</maven.bundle.plugin.version>
-        <karaf.version>4.4.7</karaf.version>
-        <osgi-service-adaptors.version>1.2.0</osgi-service-adaptors.version>
         <liquibase.version>4.32.0</liquibase.version>
         <liquibase-xsd.version>4.31</liquibase-xsd.version>
         <derby.version>10.17.1.0</derby.version>
@@ -22,26 +17,11 @@
         <assertj.version>3.27.3</assertj.version>
         <assertj-db.version>3.0.0</assertj-db.version>
         <mockito.version>5.18.0</mockito.version>
-        <mockrunner.version>2.0.7</mockrunner.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.apache.karaf</groupId>
-                <artifactId>karaf-bom</artifactId>
-                <version>${karaf.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>no.priv.bang.osgi.service.adapters</groupId>
-                <artifactId>adapters-bom</artifactId>
-                <version>${osgi-service-adaptors.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
@@ -57,42 +37,6 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>osgi.core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.component.annotations</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>no.priv.bang.osgi.service.adapters</groupId>
-            <artifactId>adapters.logservice</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>no.priv.bang.osgi.service.adapters</groupId>
-            <artifactId>adapters.logservice</artifactId>
-            <type>xml</type>
-            <classifier>features</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.web</groupId>
-            <artifactId>pax-web-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.ops4j.pax.web</groupId>
-            <artifactId>pax-web-extender-whiteboard</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -125,17 +69,6 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.mockrunner</groupId>
-            <artifactId>mockrunner-servlet</artifactId>
-            <version>${mockrunner.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>no.priv.bang.osgi.service.adapters</groupId>
-            <artifactId>service-mocks</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -213,187 +146,11 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>4.3.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>jakarta.xml.bind</groupId>
-                        <artifactId>jakarta.xml.bind-api</artifactId>
-                        <version>4.0.2</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <coberturaReports>
-                        <coberturaReport>${basedir}/target/coverage.xml</coberturaReport>
-                    </coberturaReports>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <releaseProfiles>release-extras</releaseProfiles>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>${maven.bundle.plugin.version}</version>
-                <configuration>
-                    <supportedProjectTypes>
-                        <supportedProjectType>jar</supportedProjectType>
-                        <supportedProjectType>bundle</supportedProjectType>
-                        <supportedProjectType>war</supportedProjectType>
-                    </supportedProjectTypes>
-                    <instructions>
-                        <Bundle-SymbolicName>${Bundle-SymbolicName}</Bundle-SymbolicName>
-                        <Import-Package>*</Import-Package>
-                        <Export-Package>!*</Export-Package>
-                        <_removeheaders>
-                            Private-Package,
-                            Include-Resource,
-                            Embed-Dependency,
-                            Embed-Transitive
-                        </_removeheaders>
-                        <!-- Enable processing of OSGI DS component annotations -->
-                        <_dsannotations>*</_dsannotations>
-                        <!-- Enable processing of OSGI metatype annotations -->
-                        <_metatypeannotations>*</_metatypeannotations>
-                    </instructions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>manifest</id>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                        <configuration>
-                            <supportIncrementalBuild>true</supportIncrementalBuild>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>bundle</id>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.karaf.tooling</groupId>
-                <artifactId>karaf-maven-plugin</artifactId>
-                <version>${karaf.version}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <startLevel>80</startLevel>
-                    <includeTransitiveDependency>false</includeTransitiveDependency>
-                    <aggregateFeatures>false</aggregateFeatures>
-                    <includeProjectArtifact>true</includeProjectArtifact>
-                    <primaryFeatureName>${karaf-feature-name}</primaryFeatureName>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>generate-features-file</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>features-generate-descriptor</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.3</version>
             </plugin>
         </plugins>
     </build>
-
-    <licenses>
-        <license>
-            <name>Apache License version 2</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <name>Steinar Bang</name>
-            <email>sb@dod.no</email>
-            <url>https://steinar.bang.priv.no/</url>
-            <organization>steinarb-github</organization>
-            <organizationUrl>https://github.com/steinarb</organizationUrl>
-        </developer>
-    </developers>
-
-    <scm>
-        <url>https://github.com/steinarb/post-body-capture</url>
-        <connection>scm:git:https://github.com/steinarb/post-body-capture.git</connection>
-        <tag>HEAD</tag>
-    </scm>
-
-    <issueManagement>
-        <url>https://github.com/steinarb/post-body-capture/issues</url>
-        <system>Github issue tracker</system>
-    </issueManagement>
-
-    <ciManagement>
-        <url>https://travis-ci.org/steinarb/post-body-capture</url>
-        <system>travis-ci</system>
-    </ciManagement>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
-    <url>http://steinarb.github.io/post-body-capture/</url>
-
-    <profiles>
-        <profile>
-            <id>release-extras</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.2.7</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                                <configuration>
-                                    <gpgArguments>
-                                        <arg>--pinentry-mode</arg>
-                                        <arg>loopback</arg>
-                                    </gpgArguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.7.0</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <publishingServerId>central</publishingServerId>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

@@ -1,6 +1,6 @@
 * Liquibase 4.32.0 derby view problem repro
 
-With liquibase 4.32.0 <viewExists> and <dropView> stopped working on derby.
+With liquibase 4.32.0 <viewExists> and <dropView> stopped working on derby.  This is the test case for [[https://github.com/liquibase/liquibase/issues/7003][liquibase issue 7003]].
 
 To reproduce clone and build this project (the "mvn install" will fail because of a liquibase changelog exception):
 #+begin_example

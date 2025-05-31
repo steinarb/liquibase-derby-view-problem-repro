@@ -18,11 +18,11 @@ class LiquibaseClassPathChangeLogRunnerTest {
 
         sampleappLiquibase.createInitialSchema(datasource.getConnection());
 
-        var accounts1 = assertjConnection.table("measures").build();
-        assertThat(accounts1).exists().isEmpty();
+        var measures = assertjConnection.table("measures").build();
+        assertThat(measures).exists().isEmpty();
 
-        var accounts2 = assertjConnection.request("select * from measures_view").build();
-        assertThat(accounts2).hasNumberOfColumns(22);
+        var measuresView = assertjConnection.request("select * from measures_view").build();
+        assertThat(measuresView).hasNumberOfColumns(22);
     }
 
     private DataSource createDataSource(String dbname) throws Exception {

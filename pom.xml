@@ -10,8 +10,8 @@
     <name>Liquibase view problem on derby repro</name>
 
     <properties>
-        <liquibase.version>4.32.0</liquibase.version>
-        <liquibase-xsd.version>4.31</liquibase-xsd.version>
+        <liquibase.version>4.33.0</liquibase.version>
+        <liquibase-xsd.version>4.33</liquibase-xsd.version>
         <derby.version>10.17.1.0</derby.version>
         <junit.jupiter.version>5.12.2</junit.jupiter.version>
         <assertj.version>3.27.3</assertj.version>

@@ -10,7 +10,7 @@
     <name>Liquibase view problem on derby repro</name>
 
     <properties>
-        <liquibase.version>4.33.0</liquibase.version>
+        <liquibase.version>5.0.3</liquibase.version>
         <liquibase-xsd.version>4.33</liquibase-xsd.version>
         <derby.version>10.17.1.0</derby.version>
         <junit.jupiter.version>5.13.4</junit.jupiter.version>
